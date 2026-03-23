@@ -18,12 +18,15 @@ const init = async () => {
       method: 'GET',
       path: '/ingredients',
       handler: (request, h) => {
-    },
+        // This retrieves information about ingredient(s) (this should be the least expensive operation).
+      },
     },
     {
       method: 'GET',
       path: '/pairings',
-      handler: (request, h) => {}
+      handler: (request, h) => {
+        // This retrieves the first 10 pairings of an ingredient (this is more expensive).
+      }
     } 
   );
   await server.start();
