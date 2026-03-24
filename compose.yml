@@ -31,15 +31,14 @@ services:
     command: node index.js
   database:
     # The database does database things fr fr
-    image: mongo:latest
+    image: postgres:latest
     restart: always
     container_name: gastroDB
     volumes:
-      - dbData:/data/db
-      - ./initDB.js:/docker-entrypoint-initdb.d/init.js:ro 
+      - dbData:/var/lib/postgresql 
     # makes port accessible to the front-end
     expose:
-      - "27017"
+      - "5432"
     env_file: .backend.env
     networks:
       - back
