@@ -88,7 +88,7 @@ INSERT INTO seasons (name)
 VALUES
   ('spring'),
   ('summer'),
-  ('fall'),
+  ('autumn'),
   ('winter')
 
 INSERT INTO volume (name)
@@ -97,7 +97,7 @@ VALUES
   ('quiet-moderate'),
   ('moderate'),
   ('moderate-loud'),
-  ('loud'),
+  ('loud');
 
 INSERT INTO weight (name)
 VALUES
@@ -105,4 +105,45 @@ VALUES
   ('light-medium'),
   ('medium'),
   ('medium-heavy'),
-  ('heavy'),
+  ('heavy');
+
+-- insert ingredient data
+
+INSERT INTO ingredients (name, volume_id, weight_id)
+VALUES
+  (
+    'apples',
+    (SELECT id FROM weight WHERE name = 'medium'),
+    (SELECT id FROM volume WHERE name = 'quiet-moderate')
+  ),
+  (
+    'almonds',
+    (SELECT id FROM weight WHERE name = 'medium'),
+    (SELECT id FROM volume WHERE name = 'quiet'),
+  );
+INSERT INTO seasonality (ingredient, season)
+VALUES
+  (
+    (SELECT id FROM ingredients WHERE name = 'apples'),
+    (SELECT id FROM seasons WHERE name = 'autumn')
+  );
+
+INSERT INTO ingredient_roles (ingredient, role)
+VALUES
+  (
+    (SELECT id FROM ingredients WHERE name = 'apples'),
+    (SELECT id FROM roles WHERE name = 'cooling')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'almonds'),
+    (SELECT id FROM roles WHERE name = 'warming')
+  );
+
+-- insert data for pairings
+
+INSERT INTO parings (ingredientA, ingredientB)
+VALUES
+  (
+    (SELECT id FROM ingredients WHERE name = 'apples'),
+    (SELECT id FROM ingredients WHERE name = 'almonds')
+  );
