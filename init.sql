@@ -52,7 +52,6 @@ CREATE TABLE ingredient_roles (
   PRIMARY KEY (ingredient, role),
   FOREIGN KEY (ingredient) REFERENCES ingredients(id) ON DELETE CASCADE,
   FOREIGN KEY (role) REFERENCES roles(id)
-
 );
 
 CREATE TABLE tastes (
@@ -67,7 +66,6 @@ CREATE TABLE ingredient_tastes (
   FOREIGN KEY (ingredient) REFERENCES ingredients(id) ON DELETE CASCADE,
   FOREIGN KEY (taste) REFERENCES tastes (id)
 );
-
 
 -- insert data into database
 
@@ -120,12 +118,39 @@ VALUES
     'almonds',
     (SELECT id FROM weight WHERE name = 'medium'),
     (SELECT id FROM volume WHERE name = 'quiet')
+  ),
+  (
+    'chestnuts',
+    (SELECT id FROM weight WHERE name = 'medium-heavy'),
+    (SELECT id FROM volume WHERE name = 'quiet-moderate')
+  )
+  (
+    'cinnamon',
+    (SELECT id FROM weight where name = 'light-medium'),
+    (SELECT id FROM volume WHERE name = 'loud')
   );
+
 INSERT INTO seasonality (ingredient, season)
 VALUES
   (
     (SELECT id FROM ingredients WHERE name = 'apples'),
     (SELECT id FROM seasons WHERE name = 'autumn')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chestnuts'),
+    (SELECT id FROM seasons WHERE name = 'autumn')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chestnuts'),
+    (SELECT id FROM seasons WHERE name = 'winter')
+  ),
+  (
+    (select id from ingredients where name = 'cinnamon'),
+    (select id from seasons where name = 'autumn')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'cinnamon'),
+    (SELECT id FROM seasons WHERE name = 'winter')
   );
 
 INSERT INTO ingredient_roles (ingredient, role)
@@ -137,7 +162,38 @@ VALUES
   (
     (SELECT id FROM ingredients WHERE name = 'almonds'),
     (SELECT id FROM roles WHERE name = 'warming')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'cinnamon'),
+    (SELECT id FROM roles WHERE name = 'warming')
   );
+
+INSERT INTO ingredient_tastes (ingredient, taste)
+VALUES
+  (
+    (SELECT id FROM ingredients WHERE name = 'almonds'),
+    (SELECT id FROM tastes WHERE name = 'sweet')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'apples'),
+    (SELECT id FROM tastes WHERE name = 'sweet')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'apples'),
+    (SELECT id FROM tastes WHERE name = 'sour')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chestnuts'),
+    (SELECT id FROM tastes WHERE name = 'sweet')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'cinnamon'),
+    (SELECT id FROM tastes WHERE name = 'sweet')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'cinnamon'),
+    (SELECT id FROM tastes WHERE name = 'bitter')
+  );  
 
 -- insert data for pairings
 
@@ -146,4 +202,12 @@ VALUES
   (
     (SELECT id FROM ingredients WHERE name = 'apples'),
     (SELECT id FROM ingredients WHERE name = 'almonds')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chestnuts'),
+    (SELECT id FROM ingredients WHERE name = 'apples')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'cinnamon'),
+    (SELECT id FROM ingredients WHERE name = 'apples')
   );
