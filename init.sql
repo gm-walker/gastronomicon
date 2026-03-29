@@ -89,7 +89,7 @@ VALUES
   ('spring'),
   ('summer'),
   ('autumn'),
-  ('winter')
+  ('winter');
 
 INSERT INTO volume (name)
 VALUES
@@ -109,7 +109,7 @@ VALUES
 
 -- insert ingredient data
 
-INSERT INTO ingredients (name, volume_id, weight_id)
+INSERT INTO ingredients (name, weight_id, volume_id)
 VALUES
   (
     'apples',
@@ -119,7 +119,7 @@ VALUES
   (
     'almonds',
     (SELECT id FROM weight WHERE name = 'medium'),
-    (SELECT id FROM volume WHERE name = 'quiet'),
+    (SELECT id FROM volume WHERE name = 'quiet')
   );
 INSERT INTO seasonality (ingredient, season)
 VALUES
@@ -141,7 +141,7 @@ VALUES
 
 -- insert data for pairings
 
-INSERT INTO parings (ingredientA, ingredientB)
+INSERT INTO pairings (ingredientA, ingredientB)
 VALUES
   (
     (SELECT id FROM ingredients WHERE name = 'apples'),
