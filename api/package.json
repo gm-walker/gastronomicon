@@ -10,6 +10,7 @@
     "test": "test"
   },
   "dependencies": {
-    "@hapi/hapi": "^21.4.4"
+    "@hapi/hapi": "^21.4.4",
+    "hapi-postgres-connection": "^7.0.0"
   }
 }
