@@ -1,3 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+:root {
+  --element-shadow: drop-shadow(0 0 0.5rem #bbbbbb82)
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
+/* SearchBar element */
+search form {
+  padding: 1.5em;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+#ingredient-search {
+  width: 30rem;
+  padding: 1em;
+  border: none;
+  border-radius: 10rem;
+  filter: var(--element-shadow)
+  
+}
+#ingredient-search::placeholder { 
+  color: #aaa;
+}
+
+#ingredient-submit {
+  padding: 0.5em 0.7em;
+  background-color: white;
+  border-radius: 3em;
+  filter: var(--element-shadow);
+}
+
+#ingredient-submit svg {
+  stroke: #888;
+}
