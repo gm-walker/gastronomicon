@@ -123,7 +123,7 @@ VALUES
     'chestnuts',
     (SELECT id FROM weight WHERE name = 'medium-heavy'),
     (SELECT id FROM volume WHERE name = 'quiet-moderate')
-  )
+  ),
   (
     'cinnamon',
     (SELECT id FROM weight where name = 'light-medium'),
