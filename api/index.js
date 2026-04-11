@@ -1,5 +1,7 @@
 'use strict';
 
+const HapiPostgresConnection = require('hapi-postgres-connection');
+
 // Helper Functions
 
 function getIngredients(){}
@@ -13,12 +15,16 @@ const init = async () => {
     host: "0.0.0.0",
     port: 3000,
   });
+  await server.register({
+    plugin: HapiPostgresConnection
+  });
   server.route(
     {
       method: 'GET',
       path: '/ingredients',
       handler: (request, h) => {
         // This retrieves information about ingredient(s) (this should be the least expensive operation).
+        return 'This is the Ingredients route';
       },
     },
     {
@@ -26,6 +32,7 @@ const init = async () => {
       path: '/pairings',
       handler: (request, h) => {
         // This retrieves the first 10 pairings of an ingredient (this is more expensive).
+        return 'This is the Pairings route';
       }
     } 
   );

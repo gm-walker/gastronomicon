@@ -5,5 +5,9 @@
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<title>Gastronomicon</title>
+	<meta name="description" content="A flavor-pairing app that'll allow you to find pairings amongst your ingredients.">
+	<link rel="icon" href={favicon} />
+</svelte:head>
 {@render children()}
