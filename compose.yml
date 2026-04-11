@@ -36,6 +36,7 @@ services:
     container_name: gastroDB
     volumes:
       - dbData:/var/lib/postgresql 
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     # makes port accessible to the front-end
     expose:
       - "5432"
