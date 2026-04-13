@@ -4,8 +4,30 @@ const HapiPostgresConnection = require('hapi-postgres-connection');
 
 // Helper Functions
 
-function getIngredients(){}
-function getPairings(){}
+async function getIngredients(request, h){
+  let ingredientName = request.query.name;
+  let select = "select i.name, i.description, v.name as volume, w.name as weight from ingredients as i join volume v on v.id = i.volume_id join weight w on w.id = i.weight_id where i.name = $1";
+  try {
+    const result = await request.pg.client.query(select, [ingredientName]);
+    console.log(result);
+    return h.response({ingredients: result.rows })
+    .type('text/json');
+  } catch(err) {
+    console.log(err);
+  }
+}
+async function getPairings(request, h){
+  let ingredientName = request.query.name;
+  let select = "select a.name as ingredientA, b.name as ingredientB from pairings join ingredients a on pairings.ingredientA = a.id join ingredients b on pairings.ingredientB = b.id where a.name = $1 OR b.name = $1";
+  try {
+    const result = await request.pg.client.query(select, [ingredientName]);
+    console.log(result);
+    return h.response({pairings: result.rows})
+    .type('text/json');
+  } catch(err) {
+    console.log(err);
+  }
+}
 
 // Server Initialization
 const hapi = require('@hapi/hapi');
@@ -16,26 +38,37 @@ const init = async () => {
     port: 3000,
   });
   await server.register({
-    plugin: HapiPostgresConnection
+    plugin: HapiPostgresConnection,
+    options: {
+      connectionString: process.env.DATABASE_URL
+    }
   });
-  server.route(
+
+  server.route([
+    {
+      method: 'GET',
+      path: '/',
+      handler: async (request, h) => {
+        try {
+          const result = await request.pg.client.query('SELECT NOW()');
+          console.log('✓ Database connection successful:', result.rows[0]);
+          return h.response(result.rows[0]);
+        } catch(err) {
+          console.error('✗ Database connection failed:', err.message);
+          return h.response({ errorMessage: err.message});
+        }
+      }
+    },
     {
       method: 'GET',
       path: '/ingredients',
-      handler: (request, h) => {
-        // This retrieves information about ingredient(s) (this should be the least expensive operation).
-        return 'This is the Ingredients route';
-      },
+      handler: getIngredients
     },
     {
       method: 'GET',
       path: '/pairings',
-      handler: (request, h) => {
-        // This retrieves the first 10 pairings of an ingredient (this is more expensive).
-        return 'This is the Pairings route';
-      }
-    } 
-  );
+      handler: getPairings
+    }]);
   await server.start();
   console.log('Server running on %s', server.info.uri);
 };
