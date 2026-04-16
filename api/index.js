@@ -18,7 +18,7 @@ async function getIngredients(request, h){
 }
 async function getPairings(request, h){
   let ingredientName = request.query.name;
-  let select = "select a.name as ingredientA, b.name as ingredientB from pairings join ingredients a on pairings.ingredientA = a.id join ingredients b on pairings.ingredientB = b.id where a.name = $1 OR b.name = $1";
+  let select = "select a.name as source, b.name as target from pairings join ingredients a on pairings.ingredientA = a.id join ingredients b on pairings.ingredientB = b.id where a.name = $1 OR b.name = $1";
   try {
     const result = await request.pg.client.query(select, [ingredientName]);
     console.log(`Retrieved pairings with ${ingredientName}\n`);
