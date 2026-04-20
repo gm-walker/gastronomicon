@@ -80,7 +80,8 @@ VALUES
 INSERT INTO roles (name)
 VALUES
   ('warming'),
-  ('cooling');
+  ('cooling'),
+  ('heating');
 
 INSERT INTO seasons (name)
 VALUES
@@ -120,9 +121,19 @@ VALUES
     (SELECT id FROM volume WHERE name = 'quiet')
   ),
   (
+    'bacon',
+    (SELECT id FROM weight WHERE name = 'medium'),
+    (SELECT id FROM volume WHERE name = 'moderate')
+  ),
+  (
     'chestnuts',
     (SELECT id FROM weight WHERE name = 'medium-heavy'),
     (SELECT id FROM volume WHERE name = 'quiet-moderate')
+  ),
+  (
+    'chicken',
+    (SELECT id FROM weight WHERE name = 'medium'),
+    (SELECT id FROM volume WHERE name = 'quiet')
   ),
   (
     'cinnamon',
@@ -162,6 +173,10 @@ VALUES
   (
     (SELECT id FROM ingredients WHERE name = 'almonds'),
     (SELECT id FROM roles WHERE name = 'warming')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chicken'),
+    (SELECT id FROM roles WHERE name = 'heating')
   ),
   (
     (SELECT id FROM ingredients WHERE name = 'cinnamon'),
@@ -210,4 +225,20 @@ VALUES
   (
     (SELECT id FROM ingredients WHERE name = 'cinnamon'),
     (SELECT id FROM ingredients WHERE name = 'apples')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chicken'),
+    (SELECT id FROM ingredients WHERE name = 'almonds')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chicken'),
+    (SELECT id FROM ingredients WHERE name = 'apples')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chicken'),
+    (SELECT id FROM ingredients WHERE name = 'bacon')
+  ),
+  (
+    (SELECT id FROM ingredients WHERE name = 'chicken'),
+    (SELECT id FROM ingredients WHERE name = 'cinnamon')
   );
