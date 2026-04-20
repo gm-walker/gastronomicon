@@ -4,7 +4,7 @@ A flavor-pairing app that'll allow you to find pairings amongst your ingredients
 
 # running the app
 
-I have used **Docker** to simulate how this application would function.
+I have used **Docker** to simulate how this application would function. Don't fret; you can run the app without it.
 
 ## prerequisites
 
