@@ -80,7 +80,8 @@
           .force('collision', d3.forceCollide().radius(40));
 
         // Create container group for zoom/pan
-        const g = svg.append('g');
+        const g = svg.append('g')
+          .attr('transform', `translate(${height/2})`);
 
         // Add zoom behavior
         const zoom = d3.zoom<SVGSVGElement, unknown>()
@@ -196,11 +197,11 @@
 </script>
 
 <div class="flex h-screen w-full items-center justify-center">
-  <svg bind:this={svgElement}></svg>
+  <svg id="graph" bind:this={svgElement}></svg>
 </div>
 
 <style>
-  svg {
+  #graph {
     display: block;
     width: 100%;
     height: 100%;
