@@ -6,7 +6,7 @@
   "type": "module",
   "main": "src/app.ts",
   "scripts": {
-    "api": "npx tsx src/app.ts",
+    "api": "npx tsx src/server.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
