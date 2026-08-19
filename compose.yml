@@ -1,0 +1,51 @@
+name: gastronomicon
+
+services:
+  # api handles requests from frontend
+  api:
+    build: ./backend/api
+    environment:
+      POSTGRES_URI: postgresql://chef:gastronomicon@auth-db:5432/gastroauth
+      NEO4J_URI: neo4j://app-db:7687
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+  # app-db stores application data
+  app-db:
+    image: neo4j:latest
+    volumes:
+      - app-data:/data
+      - app-db-logs:/logs
+    environment:
+      NEO4J_AUTH: neo4j/gastronomicon
+    ports:
+      - "7474:7474"
+    expose:
+      - "7687"
+    restart: always
+    networks:
+      - backend
+  # auth-db stores account authentication information
+  auth-db:
+    image: postgres:latest
+    volumes:
+      - auth-data:/var/lib/postresql
+    environment:
+      POSTGRES_USER: chef
+      POSTGRES_PASSWORD: gastronomicon
+      POSTGRES_DB: gastroauth
+    expose:
+      - "5432"
+    restart: always
+    networks:
+      - backend
+
+volumes:
+  app-data:
+  app-db-logs:
+  auth-data:
+
+networks:
+  frontend:
+  backend:
