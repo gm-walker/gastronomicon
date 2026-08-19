@@ -4,9 +4,10 @@
   "description": "",
   "author": "gm-walker",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "src/app.ts",
   "scripts": {
-    "api": "npx tsx src/index.ts"
+    "api": "npx tsx src/app.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.7.1",
