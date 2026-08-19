@@ -7,6 +7,8 @@ services:
     environment:
       POSTGRES_URI: postgresql://chef:gastronomicon@auth-db:5432/gastroauth
       NEO4J_URI: neo4j://app-db:7687
+      BETTER_AUTH_URL: http://localhost:3000
+      BETTER_AUTH_SECRET: RW1iCQ3BbXB8e5EHp/utUJ8V/RGuyppzqtuhh339wyw=
     ports:
       - "3000:3000"
     networks:
