@@ -1,17 +1,22 @@
 import express, { type Express, type Request, type Response } from 'express';
+import 'dotenv/config';
 import neo4j from 'neo4j-driver';
+import { auth } from "@lib/auth";
 
-//TODO use environment variables to receive connection information
-const driver = neo4j.driver('neo4j://app-db:7687', neo4j.auth.basic('neo4j', 'gastronomicon'));
+const app_db = neo4j.driver(process.env.NEO4J_URI!, neo4j.auth.basic('neo4j', 'gastronomicon'));
 const app: Express = express();
 const port = 3000;
 
 app.get('/', async (req: Request, res: Response) => {
     try {
-        await driver.verifyConnectivity();
-        console.log('Connection established')
+        await app_db.verifyConnectivity();
+        // If context can be accessed, auth is initialized.
+        const ctx = await auth.$context;
+        console.log('Connection established');
+        return res.json({ status: "ok", auth: "operational" });
     } catch (err) {
-        console.log(`An error occurred:\n${err}\nCause: ${err.cause}`)
+        console.log(`An error occurred:\n${err}\nCause: ${err.cause}`);
+        return res.json({ status: "err", message: err.message }, { status: 500 });
     }
 });
 
