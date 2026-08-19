@@ -9,10 +9,24 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.7.1",
     "@types/express": "^5.0.6",
     "@types/node": "^26.2.0",
+    "better-auth": "^1.7.1",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^1.0.0-rc.4",
     "express": "^5.2.1",
     "neo4j-driver": "^6.2.0",
+    "pg": "^8.23.0",
     "typescript": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "^1.0.0-rc.4",
+    "tsx": "^4.23.12"
+  },
+  "allowScripts": {
+    "drizzle-kit@1.0.0-rc.4": true,
+    "esbuild": false
   }
 }
